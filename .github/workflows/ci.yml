@@ -47,6 +47,7 @@ jobs:
           echo "Uncomment the real deploy command after linking project:"
           echo "npm i -g @railway/cli && railway up --service day12-agent"
       - name: Smoke test
+        if: vars.PUBLIC_URL != ''
         run: |
           sleep 45
           curl -fsS "${{ vars.PUBLIC_URL }}/health"
