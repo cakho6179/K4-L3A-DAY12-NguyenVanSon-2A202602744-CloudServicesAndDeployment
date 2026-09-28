@@ -20,9 +20,9 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Public URL | https://TODO-thay-bang-url-that.up.railway.app |
+| Public URL | https://railway-add-database-redis-production.up.railway.app |
 | Platform | Railway |
-| Ngày deploy | 2026-09-28 — sẽ cập nhật lại sau khi chạy railway domain xong |
+| Ngày deploy | 2026-09-28 |
 
 ## Biến Môi Trường Đã Set Trên Cloud
 
@@ -75,7 +75,20 @@ done; echo
 Dán output của các lệnh trên vào đây sau khi deploy Railway xong:
 
 ```
-Chưa có output thật — sẽ dán sau khi deploy Railway xong và chạy 5 lệnh curl trên.
+# 1. Liveness — 200 {"status":"ok"}
+{"status":"ok","service":"day12-agent","version":"1.0.0"}
+
+# 2. Readiness — 200 {"status":"ready"} (đã nối Redis add-on qua REDIS_URL private)
+{"status":"ready","redis":true}
+
+# 3. Không API key — 401
+401
+
+# 4. Có API key — 200 kèm câu trả lời (user sv-test, history_length 0)
+{"answer":"Ngắn gọn: Deploy la gi phụ thuộc vào ba yếu tố — cấu hình qua biến môi trường, health check để orchestrator biết trạng thái, và giới hạn tài nguyên.","user_id":"sv-test","history_length":0,...}
+
+# 5. Rate limit — 12 request liên tiếp với user rate-test: 10x200 rồi 2x429
+[200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 429, 429]
 ```
 
 Các bước deploy Railway (làm tiếp sau khi code đã xanh CP1–CP4):
@@ -111,7 +124,5 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
 ```
-Hiện tại Docker daemon trên máy chưa chạy (dockerDesktopLinuxEngine pipe missing)
-nên chưa chạy được phương án dự phòng local. Đang làm tiếp đường Railway cloud thật.
-Sau khi có URL sẽ thay Public URL ở trên và chạy lại pytest tests/test_cp5.py -v.
+Deploy thành công đường Railway cloud thật ngày 2026-09-28, không dùng phương án dự phòng.
 ```
