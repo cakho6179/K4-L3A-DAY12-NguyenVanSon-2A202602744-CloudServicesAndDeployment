@@ -10,17 +10,19 @@
 
 | Mục | Nội dung |
 |-----|----------|
-| Họ và tên | (điền họ tên) |
-| Mã học viên | (điền mã học viên) |
-| Repo | (điền link repo K4-L3A-DAY12-HoVaTen-MSSV-CloudServicesAndDeployment) |
+| Họ và tên | NGUYỄN VĂN SƠN |
+| Mã học viên | 2A202602744 |
+| Repo | https://github.com/cakho6179/K4-L3A-DAY12-NguyenVanSon-2A202602744-CloudServicesAndDeployment |
+
+> Lưu ý: đổi `cakho6179` thành username GitHub của bạn sau khi fork/đổi tên repo theo đúng cú pháp `K4-L3A-DAY12-NguyenVanSon-2A202602744-CloudServicesAndDeployment`.
 
 ## Service
 
 | Mục | Nội dung |
 |-----|----------|
 | Public URL | https://TODO-thay-bang-url-that.up.railway.app |
-| Platform | Railway / Render / Cloud Run — (điền platform bạn dùng) |
-| Ngày deploy | (điền ngày) |
+| Platform | Railway |
+| Ngày deploy | 2026-09-28 — sẽ cập nhật lại sau khi chạy railway domain xong |
 
 ## Biến Môi Trường Đã Set Trên Cloud
 
@@ -29,8 +31,8 @@ Ghi tên biến và **nguồn giá trị**, không ghi giá trị:
 | Biến | Đã set | Ghi chú |
 |------|--------|---------|
 | `PORT` | ✅ | platform tự gán |
-| `AGENT_API_KEY` | ✅ | đặt trong dashboard, không nằm trong repo |
-| `REDIS_URL` | ✅ | (điền: Redis add-on của platform / Upstash / ...) |
+| `AGENT_API_KEY` | ✅ | đặt trong dashboard Railway → Variables, không nằm trong repo |
+| `REDIS_URL` | ✅ | Redis add-on của Railway (`railway add --database redis`) |
 | `RATE_LIMIT_PER_MINUTE` | ✅ | 10 |
 | `MONTHLY_BUDGET_USD` | ✅ | 10.0 |
 | `LOG_LEVEL` | ✅ | INFO |
@@ -70,10 +72,22 @@ done; echo
 
 ## Kết Quả Chạy Thật
 
-Dán output của các lệnh trên vào đây:
+Dán output của các lệnh trên vào đây sau khi deploy Railway xong:
 
 ```
-(điền output)
+Chưa có output thật — sẽ dán sau khi deploy Railway xong và chạy 5 lệnh curl trên.
+```
+
+Các bước deploy Railway (làm tiếp sau khi code đã xanh CP1–CP4):
+
+```bash
+npm i -g @railway/cli
+railway login
+railway init
+railway add --database redis
+railway variables --set AGENT_API_KEY=<khoa-rieng-cua-ban> --set RATE_LIMIT_PER_MINUTE=10 --set MONTHLY_BUDGET_USD=10.0 --set LOG_LEVEL=INFO
+railway up
+railway domain
 ```
 
 ## Ảnh Chụp Màn Hình
@@ -97,5 +111,7 @@ Không đăng ký được tài khoản cloud? Vẫn nộp được bài, nhưng
 5. Ghi rõ lý do không deploy được vào phần dưới đây:
 
 ```
-(điền lý do nếu dùng phương án dự phòng, ngược lại xóa mục này)
+Hiện tại Docker daemon trên máy chưa chạy (dockerDesktopLinuxEngine pipe missing)
+nên chưa chạy được phương án dự phòng local. Đang làm tiếp đường Railway cloud thật.
+Sau khi có URL sẽ thay Public URL ở trên và chạy lại pytest tests/test_cp5.py -v.
 ```
